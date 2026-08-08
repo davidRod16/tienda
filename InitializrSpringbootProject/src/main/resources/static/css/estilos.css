@@ -3,62 +3,23 @@ body {
     font-family: serif;
 }
 
-header {
-    position: fixed;
-    background-color: #6666FF;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 90px;
-    padding: 10px;
-}
+/* header, aside, section, footer y nav se comentan porque
+   ahora el layout lo maneja Bootstrap. Si se dejan activos
+   rompen el diseño de Bootstrap. */
 
-aside {
-    position: fixed;  
-    background-color: #99FF99;
-    top: 110px;
-    left: 0;
-    width: 20%;
-    bottom: 20px;
-    padding: 10px;
-}
-section {
-    position: fixed;  
-    background-color: #dd8295;
-    top: 110px;
-    left: 20%;
-    width: 80%;
-    bottom: 20px;
-    padding: 10px;
-    overflow-y: scroll;
-}
-footer {
-    position: fixed;  
-    background-color: black;
-    color: white;    
-    left: 0;
-    width: 100%;
-    height: 20px;
-    bottom: 0;
-    text-align: center;
-}
-
-nav {
-   display: flex;
-   justify-content: space-between;
-   margin: 0 10px;
-}
+/*
+header { position: fixed; background-color: #6666FF; ... }
+aside  { position: fixed; background-color: #99FF99; ... }
+section{ position: fixed; background-color: #dd8295; ... }
+footer { position: fixed; background-color: black;   ... }
+nav    { display: flex; justify-content: space-between; ... }
+*/
 
 .logo {
     font-size: 30px;
     font-weight: bold;
     font-family: cursive;
     line-height: 90px;
-}
-
-.nav-link {
-    text-decoration: none;
-    color: white;
 }
 
 .nav-menu {
@@ -82,7 +43,4 @@ nav {
 .menu-item:hover {
     background-color: black;
 }
-
-
-
 

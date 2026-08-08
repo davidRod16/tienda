@@ -1,49 +1,3 @@
-<<<<<<< HEAD
-<!-- Fragmento: head (cabecera HTML con estilos) -->
-<head th:fragment="head">
-    <meta charset="UTF-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Tienda - Gestión de Categorías</title>
-    
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"/>
-    
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
-    
-    <!-- Estilos personalizados -->
-    <link rel="stylesheet" th:href="@{/css/estilos.css}"/>
-</head>
-
-<!-- Fragmento: header (encabezado con navegación) -->
-<header th:fragment="header" class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <div class="container-fluid">
-        <a class="navbar-brand" th:href="@{/}">
-            <i class="fa-solid fa-store"></i> Tienda
-        </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" 
-                data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ms-auto">
-                <li class="nav-item">
-                    <a class="nav-link" th:href="@{/}">Inicio</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" th:href="@{/categoria/listado}">Categorías</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" th:href="@{/ejemplo2}">Ejemplo 2</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" th:href="@{/multimedia}">Multimedia</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" th:href="@{/iframes}">Iframes</a>
-                </li>
-            </ul>
-=======
 <!-- Fragmento #1 que irá en el head de todas las páginas, así se incluye todo lo necesario de configuración-->
 <head th:fragment="head">
     <title>TechShop</title>
@@ -54,16 +8,21 @@
     <link rel="icon" type="image/png" sizes="96x96" href="/fav/favicon-96x96.png"/>
     <link rel="icon" type="image/png" sizes="256x256" href="/fav/favicon-256x256.png"/>
 
-
+    <!-- Bootstrap y estilos -->
     <link th:href="@{/webjars/bootstrap/5.3.7/css/bootstrap.min.css}" rel="stylesheet"/>
     <link th:href="@{/webjars/font-awesome/css/all.css}" rel="stylesheet"/>
     <link th:href="@{/css/estilos.css}" rel="stylesheet"/>
 
+    <!-- JavaScript -->
     <script th:src="@{/webjars/jquery/3.7.1/jquery.min.js}"></script>
+
+    <!-- bootstrap.bundle YA incluye Popper -->
     <script th:src="@{/webjars/bootstrap/5.3.7/js/bootstrap.bundle.min.js}"></script>
-    <script th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>
-    <script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+
+    <!-- Scripts propios -->
     <script th:src="@{/js/rutinas.js}"></script>
+
+    <!-- CSRF -->
     <meta name="_csrf" th:content="${_csrf.token}"/>
     <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
 
@@ -73,42 +32,56 @@
 <!-- Fragmento #2  define el encabezado de las páginas, en concreto el menú y enlaces rápidos -->
 <header th:fragment="header" class="header">
     <nav class="navbar navbar-expand-sm p-0">
-        <div class="container">                    
+        <div class="container">
             <a th:href="@{/}" class="navbar-brand">[[#{aplicacion.titulo}]]</a>
             <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
-                
+
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                 <ul class="navbar-nav" sec:authorize="hasRole('ROLE_VENDEDOR') or hasRole('ROLE_ADMIN')" >
                     <li class="nav-item px-2"><a class="nav-link" th:href="@{/categoria/listado}">[[#{plantilla.categorias}]]</a></li>
                     <li class="nav-item px-2"><a class="nav-link" th:href="@{/producto/listado}">[[#{plantilla.productos}]]</a></li>
-                    <li class="nav-item px-2"><a class="nav-link" th:href="@{/consultas/listado}">[[#{plantilla.consultas}]]</a></li> 
-                                                   
+                    <li class="nav-item px-2"><a class="nav-link" th:href="@{/consultas/listado}">[[#{plantilla.consultas}]]</a></li>
+
                     <li class="nav-item dropdown" sec:authorize="hasRole('ROLE_ADMIN')">
                         <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">
-                            [[#{plantilla.admin}]]</a>
+                            [[#{plantilla.admin}]]
+                        </a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" th:href="@{/usuario/listado}">[[#{plantilla.usuarios}]]</a></li>                                    
+                            <li><a class="dropdown-item" th:href="@{/usuario/listado}">[[#{plantilla.usuarios}]]</a></li>
+
                             <li class="submenu submenu-md dropend">
-                                <a class="dropdown-item dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false"
+                                <a class="dropdown-item dropdown-toggle"
+                                   role="button"
+                                   data-bs-toggle="dropdown"
+                                   aria-expanded="false"
                                    onclick="event.stopPropagation();">
                                     [[#{plantilla.seguridad}]]
                                 </a>
-                                <ul class="dropdown-menu">                                            
+
+                                <ul class="dropdown-menu">
                                     <li><a class="dropdown-item" th:href="@{/role/listado}">[[#{plantilla.troles}]]</a></li>
                                     <li><a class="dropdown-item" th:href="@{/usuario_rol/mantenimiento}">[[#{plantilla.permisos}]]</a></li>
                                     <li><a class="dropdown-item" th:href="@{/ruta/listado}">[[#{plantilla.rutas}]]</a></li>
                                 </ul>
                             </li>
+
                             <li><a class="dropdown-item" th:href="@{/constante/listado}">[[#{plantilla.constantes}]]</a></li>
                         </ul>
                     </li>
                 </ul>
+
                 <ul class="navbar-nav">
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">
-                            [[#{plantilla.idioma}]]</a>
+                        <a class="nav-link dropdown-toggle"
+                           data-bs-toggle="dropdown"
+                           href="#"
+                           role="button"
+                           aria-expanded="false">
+                            [[#{plantilla.idioma}]]
+                        </a>
+
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" th:href="@{/(lang=es)}">Español</a></li>
                             <li><a class="dropdown-item" th:href="@{/(lang=en)}">English</a></li>
@@ -132,7 +105,9 @@
                     <li class="nav-item my-auto">
                         <a class="nav-link">
                             <img th:src="@{${session.imagenUsuario}}"
-                                 alt="your image" height="40" class="round-circle"/>
+                                 alt="your image"
+                                 height="40"
+                                 class="round-circle"/>
                             <span sec:authentication="name" class="ms-1"></span>
                         </a>
                     </li>
@@ -145,14 +120,14 @@
                             </button>
                         </form>
                     </li>
-                </ul>  
+                </ul>
 
-                <div id="resultBlock">
-                </div>         
+                <div id="resultBlock"></div>
 
             </div>
         </div>
     </nav>
+
     <section id="main-header" class="py-2 bg-success text-white">
         <div class="container">
             <div class="row">
@@ -164,12 +139,12 @@
     </section>
 </header>
 
-<!-- Fragmento #3  define el footer de las páginas, aparte de esto se podria incluir enlaces a redes socilaes y demás -->
+<!-- Fragmento #3 define el footer -->
 <footer th:fragment="footer" class="p-2 mt-5 bg-info text-white">
     <p class="lead text-center">[[#{plantilla.derechos}]] &COPY;</p>
 </footer>
 
-<!-- Fragmentos #4 define una ventana tipo Toast para mostrar mensajes al usuario -->
+<!-- Fragmento #4 define una ventana tipo Toast -->
 <section th:fragment="mostrarToast">
 
     <div aria-live="polite" aria-atomic="true"
@@ -198,25 +173,32 @@
                     </button>
                 </div>
             </div>
->>>>>>> a8ff03d (Clase 6 / Totalmente Funcional)
         </div>
-    </div>
-</header>
 
-<<<<<<< HEAD
-<!-- Fragmento: footer (pie de página) -->
-<footer th:fragment="footer" class="bg-dark text-white text-center py-4 mt-5">
-    <div class="container">
-        <p class="mb-0">&copy; 2024 Tienda del Curso. Todos los derechos reservados.</p>
-        <p class="text-muted mb-0">Universidad Fidélitas - Desarrollo Web con Spring Boot</p>
-    </div>
-</footer>
+        <div th:if="${todoOk}" class="toast show"
+             role="status"
+             aria-live="polite"
+             aria-atomic="true"
+             data-bs-autohide="true">
 
-<!-- Scripts de Bootstrap y jQuery (necesarios para modales y interactividad) -->
-<script th:fragment="scripts">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-</script>
-=======
+            <div class="toast-header text-white bg-success">
+                <i class="fa-solid fa-square-check"></i>
+                <strong class="me-auto">[[#{atencion}]]</strong>
+            </div>
+
+            <div class="toast-body">
+                <p>[[${todoOk}]]</p>
+
+                <div class="mt-2 pt-2 border-top text-center">
+                    <button type="button"
+                            class="btn btn-secondary btn-sm"
+                            data-bs-dismiss="toast">
+                        [[#{accion.cerrar}]]
+                    </button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
 </section>
->>>>>>> a8ff03d (Clase 6 / Totalmente Funcional)
