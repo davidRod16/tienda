@@ -5,7 +5,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest(properties = {
     "firebase.json.path=firebase", 
-    "firebase.json.file=techshop-8c8f7-firebase-adminsdk-fbsvc-61f1777870.json"
+    "firebase.json.file=techshop-8c8f7-firebase-adminsdk-fbsvc-4066b5311b.json"
 })
 class TiendaApplicationTests {
 
