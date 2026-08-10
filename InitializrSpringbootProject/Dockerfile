@@ -17,7 +17,8 @@ FROM eclipse-temurin:24-jre
 
 WORKDIR /app
 
-RUN groupadd -r spring && useradd -r -g spring spring
+RUN groupadd -r spring && useradd -r -g spring spring && usermod -a -G 1000 spring
+
 USER spring:spring
 
 COPY --from=build /app/target/tienda-1.jar app.jar

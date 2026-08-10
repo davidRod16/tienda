@@ -21,6 +21,7 @@ import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 import org.thymeleaf.spring6.templateresolver.SpringResourceTemplateResolver;
 import org.thymeleaf.templatemode.TemplateMode;
+import java.nio.file.Files;
 
 @Configuration
 public class ProjectConfig implements WebMvcConfigurer {
@@ -87,10 +88,29 @@ public class ProjectConfig implements WebMvcConfigurer {
     // ==================== FIREBASE STORAGE BEAN ====================
     @Bean
     public Storage storage() throws IOException {
-        ClassPathResource resource = new ClassPathResource(jsonPath + "/" + jsonFile);
-        try (InputStream inputStream = resource.getInputStream()) {
-            GoogleCredentials credentials = GoogleCredentials.fromStream(inputStream);
-            return StorageOptions.newBuilder().setCredentials(credentials).build().getService();
+
+        File renderSecret = new File("/etc/secrets/firebase-key.json");
+
+        GoogleCredentials credentials;
+
+        if (renderSecret.exists()) {
+            // Render
+            try (InputStream inputStream = Files.newInputStream(renderSecret.toPath())) {
+                credentials = GoogleCredentials.fromStream(inputStream);
+            }
+        } else {
+            // Local / NetBeans
+            ClassPathResource resource
+                    = new ClassPathResource(jsonPath + "/" + jsonFile);
+
+            try (InputStream inputStream = resource.getInputStream()) {
+                credentials = GoogleCredentials.fromStream(inputStream);
+            }
         }
+
+        return StorageOptions.newBuilder()
+                .setCredentials(credentials)
+                .build()
+                .getService();
     }
 }
